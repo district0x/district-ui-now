@@ -9,7 +9,20 @@ Useful when you need to display time remaining counter on the website (e.g for a
 Add `[district0x/district-ui-now "1.0.0"]` into your project.clj  
 Include `[district.ui.now]` in your CLJS file, where you use `mount/start`
 
+## API Overview
+
 **Warning:** district0x modules are still in early stages, therefore API can change in a future.
+
+- [district.ui.now](#districtuinow)
+- [district.ui.now.subs](#districtuinowsubs)
+  - [::now](#now-sub)
+  - [::time-remaining](#time-remaining-sub)
+- [district.ui.now.events](#districtuinowevents)
+  - [::update-now](#update-now)
+- [district.ui.now.queries](#districtuinowqueries)
+  - [now](#now)
+  - [time-remaining](#time-remaining)
+  - [assoc-now](#assoc-now)
 
 ## district.ui.now
 This namespace contains now [mount](https://github.com/tolitius/mount) module.  
@@ -28,10 +41,10 @@ This module has no configuration parameters.
 ## district.ui.now.subs
 re-frame subscriptions provided by this module:
 
-#### `::now`
+#### <a name="now-sub">`::now`
 Returns cljs-time time of now. 
 
-#### `::time-remaining [to-time]`
+#### <a name="time-remaining-sub">`::time-remaining [to-time]`
 Returns time remaining from now to `to-time`. 
 
 ```clojure
@@ -49,31 +62,22 @@ Returns time remaining from now to `to-time`.
 ## district.ui.now.events
 re-frame events provided by this module:
 
-#### `::start [opts]`
-Event fired at mount start.
-
-#### `::update-now`
+#### <a name="update-now">`::update-now`
 Event fired every second to update now in re-frame db.
-
-#### `::stop`
-Cleanup event fired on mount stop.
 
 ## district.ui.now.queries
 DB queries provided by this module:  
 *You should use them in your events, instead of trying to get this module's 
 data directly with `get-in` into re-frame db.*
 
-#### `now [db]`
+#### <a name="now">`now [db]`
 Works the same way as sub `::now`.
 
-#### `time-remaining [db to-time]`
+#### <a name="time-remaining">`time-remaining [db to-time]`
 Works the same way as sub `::time-remaining`.
 
-#### `assoc-now [db now]`
+#### <a name="assoc-now">`assoc-now [db now]`
 Associates new now and returns new re-frame db.
-
-#### `dissoc-now [db]`
-Cleans up this module from re-frame db. 
 
 ## Development
 ```bash
