@@ -41,7 +41,7 @@ This module has no configuration parameters.
 ## district.ui.now.subs
 re-frame subscriptions provided by this module:
 
-#### <a name="now-sub">`::now`
+#### <a name="now-sub">`::now []`
 Returns cljs-time time of now. 
 
 #### <a name="time-remaining-sub">`::time-remaining [to-time]`
