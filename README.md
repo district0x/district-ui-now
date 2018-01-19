@@ -6,7 +6,7 @@ Clojurescript [mount](https://github.com/tolitius/mount) + [re-frame](https://gi
 Useful when you need to display time remaining counter on the website (e.g for auctions). This module uses [cljs-time](https://github.com/andrewmcveigh/cljs-time).
 
 ## Installation
-Add `[district0x/district-ui-now "1.0.0"]` into your project.clj  
+Add `[district0x/district-ui-now "1.0.1"]` into your project.clj  
 Include `[district.ui.now]` in your CLJS file, where you use `mount/start`
 
 ## API Overview

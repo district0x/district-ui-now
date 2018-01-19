@@ -1,9 +1,10 @@
-(defproject district0x/district-ui-now "1.0.0"
+(defproject district0x/district-ui-now "1.0.1"
   :description "district UI module for providing current time"
   :url "https://github.com/district0x/district-ui-now"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[com.andrewmcveigh/cljs-time "0.5.2"]
+                 [district0x/district-time "1.0.0"]
                  [district0x/re-frame-interval-fx "1.0.2"]
                  [mount "0.1.11"]
                  [org.clojure/clojurescript "1.9.946"]
