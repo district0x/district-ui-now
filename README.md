@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/district0x/district-ui-now.svg?branch=master)](https://travis-ci.org/district0x/district-ui-now)
 
-Clojurescript [mount](https://github.com/tolitius/mount) + [re-frame](https://github.com/Day8/re-frame) module for a district UI, that provides current time.
+Clojurescript [re-mount](https://github.com/district0x/d0x-INFRA/blob/master/re-mount.md) module, that provides current time.
 Useful when you need to display time remaining counter on the website (e.g for auctions). This module uses [cljs-time](https://github.com/andrewmcveigh/cljs-time).
 
 ## Installation
