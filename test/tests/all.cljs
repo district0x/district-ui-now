@@ -7,7 +7,7 @@
     [district.ui.now.subs :as subs]
     [district.ui.now]
     [mount.core :as mount]
-    [re-frame.core :refer [reg-event-fx dispatch-sync subscribe reg-cofx reg-fx dispatch]]))
+    [re-frame.core :as re-frame :refer [reg-event-fx dispatch-sync subscribe reg-cofx reg-fx dispatch]]))
 
 (use-fixtures
   :each
@@ -31,17 +31,26 @@
 
       (wait-for [::events/update-now]
         (is (t/after? @now @*prev-now*))
-        (is (< (:seconds @time-remaining) (:seconds @*prev-time-remaining*) ))
+        (is (< (:seconds @time-remaining) (:seconds @*prev-time-remaining*)))
         (reset! *prev-now* @now)
         (reset! *prev-time-remaining* @time-remaining)
 
         (wait-for [::events/update-now]
           (is (t/after? @now @*prev-now*))
-          (is (< (:seconds @time-remaining) (:seconds @*prev-time-remaining*) ))
+          (is (< (:seconds @time-remaining) (:seconds @*prev-time-remaining*)))
           (reset! *prev-now* @now)
           (reset! *prev-time-remaining* @time-remaining)
 
           (wait-for [::events/update-now]
             (is (t/after? @now @*prev-now*))
-            (is (< (:seconds @time-remaining) (:seconds @*prev-time-remaining*) ))))))))
+            (is (< (:seconds @time-remaining) (:seconds @*prev-time-remaining*)))
+            (reset! *prev-now* @now)
 
+            (re-frame/dispatch-sync [::events/set-now (t/minus (t/now) (t/years 1))])
+            (wait-for [::events/update-now]
+              (is (= 1 (t/in-years (t/interval @now @*prev-now*))))
+              (reset! *prev-now* @now)
+
+              (re-frame/dispatch-sync [::events/increment-now (t/in-millis (t/interval @now (t/now)))])
+              (wait-for [::events/update-now]
+                (is (= 1 (t/in-years (t/interval @*prev-now* @now))))))))))))

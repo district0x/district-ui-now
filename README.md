@@ -6,7 +6,7 @@ Clojurescript [re-mount](https://github.com/district0x/d0x-INFRA/blob/master/re-
 Useful when you need to display time remaining counter on the website (e.g for auctions). This module uses [cljs-time](https://github.com/andrewmcveigh/cljs-time).
 
 ## Installation
-Add `[district0x/district-ui-now "1.0.1"]` into your project.clj  
+Add `[district0x/district-ui-now "1.0.2"]` into your project.clj
 Include `[district.ui.now]` in your CLJS file, where you use `mount/start`
 
 ## API Overview
@@ -19,13 +19,15 @@ Include `[district.ui.now]` in your CLJS file, where you use `mount/start`
   - [::time-remaining](#time-remaining-sub)
 - [district.ui.now.events](#districtuinowevents)
   - [::update-now](#update-now)
+  - [::set-now](#set-now)
+  - [::increment-now](#increment-now)
 - [district.ui.now.queries](#districtuinowqueries)
   - [now](#now)
   - [time-remaining](#time-remaining)
   - [assoc-now](#assoc-now)
 
 ## district.ui.now
-This namespace contains now [mount](https://github.com/tolitius/mount) module.  
+This namespace contains now [mount](https://github.com/tolitius/mount) module.
 This module has no configuration parameters.
 
 ```clojure
@@ -42,19 +44,19 @@ This module has no configuration parameters.
 re-frame subscriptions provided by this module:
 
 #### <a name="now-sub">`::now []`
-Returns cljs-time time of now. 
+Returns cljs-time time of now.
 
 #### <a name="time-remaining-sub">`::time-remaining [to-time]`
-Returns time remaining from now to `to-time`. 
+Returns time remaining from now to `to-time`.
 
 ```clojure
 (ns my-district.core
     (:require [mount.core :as mount]
               [district.ui.now.subs :as now-subs]
               [cljs-time.core :as t]))
-  
+
   (defn home-page []
-    (let [time-remaining (subscribe [::now-subs/time-remaining (t/plus (t/now) (t/seconds 50))])]  
+    (let [time-remaining (subscribe [::now-subs/time-remaining (t/plus (t/now) (t/seconds 50))])]
       (fn []
         [:div "Seconds remaining: " (:seconds @time-remaining)])))
 ```
@@ -65,9 +67,32 @@ re-frame events provided by this module:
 #### <a name="update-now">`::update-now`
 Event fired every second to update now in re-frame db.
 
+#### <a name="set-now">`::set-now`
+Event to set now time in re-frame db, from which time incrementing continues.
+
+```clojure
+(ns my-district.core
+    (:require [district.ui.now.events :as now-events]
+              [cljs-time.core :as t]
+              [re-frame.core :as re-frame]))
+
+(re-frame/dispatch [::now-events/set-now (t/minus (t/now) (t/years 1))])
+```
+
+#### <a name="increment-now">`::increment-now`
+Event to increment now time in re-frame db by a number of milliseconds.
+
+```clojure
+(ns my-district.core
+    (:require [district.ui.now.events :as now-events]
+              [re-frame.core :as re-frame]))
+
+(re-frame/dispatch [::now-events/increment-now 8.64e+7])
+```
+
 ## district.ui.now.queries
-DB queries provided by this module:  
-*You should use them in your events, instead of trying to get this module's 
+DB queries provided by this module:
+*You should use them in your events, instead of trying to get this module's
 data directly with `get-in` into re-frame db.*
 
 #### <a name="now">`now [db]`

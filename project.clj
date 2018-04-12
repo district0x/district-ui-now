@@ -1,4 +1,4 @@
-(defproject district0x/district-ui-now "1.0.1"
+(defproject district0x/district-ui-now "1.0.2"
   :description "district UI module for providing current time"
   :url "https://github.com/district0x/district-ui-now"
   :license {:name "Eclipse Public License"
